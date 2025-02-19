@@ -13,12 +13,14 @@ add('shared_files', [
     'frontend/config/main-local.php',
     'frontend/config/params-local.php',
 ]);
-add('shared_dirs', []);
+add('shared_dirs', [
+    'frontend/web/uploads',
+]);
 add('writable_dirs', []);
 
 // Hosts
 host('calorie')
-    ->set('remote_user', 'root')
+    ->set('remote_user', 'chris')
     ->set('deploy_path', '/var/www/calorie')
     ->set('environment', 'Production')
     ->setLabels([
@@ -26,7 +28,7 @@ host('calorie')
     ]);
 host('test.calorie')
     ->set('composer_options', '--verbose --prefer-dist --no-progress --no-interaction')
-    ->set('remote_user', 'root')
+    ->set('remote_user', 'chris')
     ->set('deploy_path', '/var/www/test.calorie')
     ->set('environment', 'Testing')
     ->setLabels([
@@ -40,7 +42,7 @@ task('init-app', function () {
 
 desc('Restart yii queue workers');
 task('yii:queue:restart', function () {
-    run('systemctl restart yii-queue@*');
+    run('systemctl restart calorie-queue@*');
 });
 
 task('deploy:prod', function() {
