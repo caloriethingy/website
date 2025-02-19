@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* User view text to be more consistant
+* User view text to be more consistent
 
 ### Removed
 
