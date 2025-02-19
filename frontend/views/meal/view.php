@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var common\models\Meal $model */
 
-$this->title = $model->id;
+$this->title = $model->food_name;
 $this->params['breadcrumbs'][] = ['label' => 'Meals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,16 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'file_name',
             'calories',
             'protein',
             'fat',
             'carbohydrates',
             'fiber',
-            'meal',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
         ],
     ]) ?>
 
