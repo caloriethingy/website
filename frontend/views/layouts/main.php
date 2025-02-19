@@ -45,7 +45,11 @@ $this->beginPage() ?>
 
         if (!Yii::$app->user->isGuest) {
             $menuItems[] = [
-                'label' => 'Meals',
+                'label' => 'Capture Meal',
+                'url' => [Url::to(['meal/upload'])],
+            ];
+            $menuItems[] = [
+                'label' => 'List Meals',
                 'url' => [Url::to(['meal/index'])],
             ];
             $menuItems[] = [

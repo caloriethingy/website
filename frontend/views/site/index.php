@@ -2,7 +2,8 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'Sales Agent';
+$this->title = 'Calorie Thingy';
+
 ?>
 
 <div class="alert alert-info" role="info">
@@ -14,7 +15,7 @@ $this->title = 'Sales Agent';
             <h1 class="display-4">Calorie Ease</h1>
             <p class="fs-5 fw-light">Track your food with a picture!</p>
             <p>
-                <a class="btn btn-lg btn-success" href="<?= Yii::$app->getUrlManager()->createUrl(['meal/create']) ?>">Log a meal</a>
+                <a class="btn btn-lg btn-success" href="<?= Yii::$app->getUrlManager()->createUrl(['meal/upload']) ?>">Capture a meal</a>
                 <a class="btn btn-lg btn-primary" href="<?= Yii::$app->getUrlManager()->createUrl(['summary']) ?>">View Summary</a></p>
         </div>
     </div>

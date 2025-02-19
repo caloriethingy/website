@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\components\SonarApiComponent;
+use common\components\GeminiApiComponent;
 use common\jobs\EmailJob;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -162,7 +162,7 @@ class SiteController extends Controller
             return Yii::$app->response->send();
         }
 
-        /** @var SonarApiComponent $api */
+        /** @var GeminiApiComponent $api */
         $api = Yii::$app->sonar;
         $object = json_decode(Yii::$app->request->getRawBody());
 

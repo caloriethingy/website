@@ -32,10 +32,10 @@ class EmailJob extends BaseObject implements RetryableJobInterface
         $this->templateModel = array_merge($this->templateModel, [
             "product" => Yii::$app->params['product_name'],
             "product_name" => Yii::$app->params['product_name'],
-            "support_url" => Yii::$app->params['support_url'],
+            //"support_url" => Yii::$app->params['support_url'],
             "product_url" => Yii::$app->urlManager->createAbsoluteUrl(['site/index']),
             "company_name" => Yii::$app->params['company_name'],
-            "company_address" => Yii::$app->params['company_address'],
+            //"company_address" => Yii::$app->params['company_address'],
         ]);
 
         Yii::$app->postmark->client->sendEmailWithTemplate(

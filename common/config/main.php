@@ -1,7 +1,7 @@
 <?php
 
 use common\components\PostmarkComponent;
-use common\components\SonarApiComponent;
+use common\components\GeminiApiComponent;
 use common\components\HubspotApiComponent;
 use yii\caching\FileCache;
 use yii\queue\db\Queue;
@@ -22,10 +22,11 @@ return [
         'cache' => [
             'class' => FileCache::class,
         ],
-        'sonar' => [
-            'class' => SonarApiComponent::class,
-            'baseUrl' => $params['sonar.url'] . '/api/graphql',
-            'bearerToken' => $params['sonar.bearerToken'],
+        'gemini' => [
+            'class' => GeminiApiComponent::class,
+            'baseUrl' => $params['gemini.url'],
+            'apiKey' => $params['gemini.key'],
+            'model' => $params['gemini.model'],
         ],
         'postmark' => [
             'class' => PostmarkComponent::class,

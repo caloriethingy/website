@@ -3,20 +3,17 @@
   "require": {
     "php": ">=7.4.0",
     "ext-json": "*",
-    "yiisoft/yii2": "~2.0.45",
-    "yiisoft/yii2-bootstrap5": "@dev",
-    "yiisoft/yii2-authclient": "^2.2",
-    "yiisoft/yii2-httpclient": "~2.0",
     "cgsmith/yii2-flatpickr-widget": "~1.1",
-    "yiisoft/yii2-queue": "^2.3",
-    "wildbit/postmark-php": "^6.0",
     "donatj/phpuseragentparser": "^1.9",
-    "twbs/bootstrap-icons": "^1.11",
+    "ramsey/uuid": "^4.7",
     "sentry/sentry": "^4.9",
-    "kartik-v/yii2-widget-select2": "^2.2",
-    "kartik-v/yii2-grid": "dev-master",
-    "kartik-v/yii2-editable": "^1.8",
-    "kartik-v/yii2-icons": "^1.4"
+    "twbs/bootstrap-icons": "^1.11",
+    "wildbit/postmark-php": "^6.0",
+    "yiisoft/yii2": "~2.0.45",
+    "yiisoft/yii2-authclient": "^2.2",
+    "yiisoft/yii2-bootstrap5": "@dev",
+    "yiisoft/yii2-httpclient": "~2.0",
+    "yiisoft/yii2-queue": "^2.3"
   },
   "require-dev": {
     "codeception/codeception": "^5.1",
@@ -36,6 +33,7 @@
   "config": {
     "sort-packages": true,
     "allow-plugins": {
+      "php-http/discovery": true,
       "yiisoft/yii2-composer": true
     },
     "process-timeout": 1800,
@@ -52,6 +50,10 @@
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:eficiencia-fiscal/gemini-client.git"
     }
   ]
 }

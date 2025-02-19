@@ -69,11 +69,19 @@ class SignupForm extends Model
     protected function sendEmail($user)
     {
         Yii::$app->queue->push(new EmailJob([
-            'templateAlias' => EmailJob::VERIFY_EMAIL,
+            'templateAlias' => EmailJob::ADMIN_NOTIFY,
+            'email' => Yii::$app->params['supportEmail'],
+            'templateModel' => [
+                "name" => $user->first_name,
+                "user_name" => $user->email,
+            ]
+        ]));
+        Yii::$app->queue->push(new EmailJob([
+            'templateAlias' => EmailJob::WELCOME_EMAIL,
             'email' => $user->email,
             'templateModel' => [
                 "name" => $user->first_name,
-                "action_url" => Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]),
+                "action_url" => Yii::$app->urlManager->createAbsoluteUrl(['site/login']),
             ]
         ]));
 

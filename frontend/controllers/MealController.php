@@ -3,10 +3,14 @@
 namespace frontend\controllers;
 
 use common\models\Meal;
+use frontend\models\MealForm;
+use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * MealController implements the CRUD actions for Meal model.
@@ -21,8 +25,17 @@ class MealController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -55,6 +68,28 @@ class MealController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionUpload()
+    {
+        $model = new MealForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->picture = UploadedFile::getInstance($model, 'picture');
+            if ($model->upload()) {
+                $meal = \Yii::$app->gemini->mealInquiry($model->filepath);
+                return $this->render('success', ['model' => $meal]);
+            }
+        }
+
+        return $this->render('upload', [
+                'model' => $model,
+        ]);
+    }
+
+    public function actionSuccess()
+    {
+        return $this->render('success');
     }
 
     /**

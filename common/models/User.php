@@ -54,26 +54,24 @@ class User extends ActiveRecord implements IdentityInterface
         ];
 
         // register event
-        $this->on(self::EVENT_AFTER_INSERT, [$this, 'emailTrigger']);
-        $this->on(self::EVENT_AFTER_UPDATE, [$this, 'emailTrigger']);
+        //$this->on(self::EVENT_AFTER_INSERT, [$this, 'emailTrigger']);
+        //$this->on(self::EVENT_AFTER_UPDATE, [$this, 'emailTrigger']);
     }
 
 
     public function emailTrigger(AfterSaveEvent $event)
     {
-        if ($event->sender->status == self::STATUS_ACTIVE && !$event->sender->welcome_email_sent) {
-            Yii::$app->queue->push(new EmailJob([
-                'templateAlias' => EmailJob::WELCOME_EMAIL,
-                'email' => $event->sender->email,
-                'templateModel' => [
-                    "name" => $event->sender->first_name,
-                    "action_url" => Yii::$app->urlManager->createAbsoluteUrl(['site/login']),
-                ]
-            ]));
+        Yii::$app->queue->push(new EmailJob([
+            'templateAlias' => EmailJob::WELCOME_EMAIL,
+            'email' => $event->sender->email,
+            'templateModel' => [
+                "name" => $event->sender->first_name,
+                "action_url" => Yii::$app->urlManager->createAbsoluteUrl(['site/login']),
+            ]
+        ]));
 
-            $event->sender->welcome_email_sent = true;
-            $event->sender->save(false);
-        }
+        $event->sender->welcome_email_sent = true;
+        $event->sender->save(false);
     }
 
 
@@ -91,7 +89,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_UNVERIFIED],
+            ['status', 'default', 'value' => self::STATUS_VERIFIED],
             [['email'], 'email'],
             [['email'], 'unique'],
             [['sales_agent_id', 'created_at', 'updated_at'], 'integer'],

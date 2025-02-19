@@ -7,17 +7,21 @@ namespace common\models;
  *
  * @property int $id
  * @property string $file_name
+ * @property string $food_name
  * @property int $calories
  * @property int $protein
  * @property int $fat
  * @property int $carbohydrates
  * @property int $fiber
  * @property int $meal
+ * @property int $user_id
  * @property int $created_at
  * @property int $updated_at
  */
 class Meal extends \yii\db\ActiveRecord
 {
+
+    public $base64File;
 
     /**
      * {@inheritdoc}
@@ -33,8 +37,8 @@ class Meal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['file_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'required'],
-            [['calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'integer'],
+            [['food_name', 'file_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'integer'],
             [['file_name'], 'string', 'max' => 255],
         ];
     }
