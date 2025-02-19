@@ -89,7 +89,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_VERIFIED],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['email'], 'email'],
             [['email'], 'unique'],
             [['sales_agent_id', 'created_at', 'updated_at'], 'integer'],

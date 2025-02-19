@@ -113,7 +113,6 @@ class GeminiApiComponent extends \yii\base\Component
 
         $meal = new Meal();
         $gemini = json_decode($response->getContent(), true);
-        Yii::debug($gemini);
         $geminiMeal = json_decode($gemini['candidates'][0]['content']['parts'][0]['text'], true);
         $meal->protein = $geminiMeal['protein'];
         $meal->calories = $geminiMeal['calories'];
@@ -121,8 +120,13 @@ class GeminiApiComponent extends \yii\base\Component
         $meal->fat = $geminiMeal['fat'];
         $meal->fiber = $geminiMeal['fiber'];
         $meal->food_name = $geminiMeal['food_name'];
+        $meal->user_id = Yii::$app->user->id;
+        $meal->file_name = $filePath;
+        Yii::debug($meal);
+        $meal->save();
+        // @TODO catch unidentified pictures?
 
-        return $meal;
+        return $meal->id;
     }
 
 }

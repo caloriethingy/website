@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Initial release
 
 ## [0.1.0] - 2025-02-10
 
-* First release
+This marks the first release!
+
+### Added
+
+* User is able to signup, reset password, and also receives a welcome email
+* Able to upload from phone with the rear camera initially
+* Confetti on success :)
 
 [Unreleased]: https://github.com/cgsmith/calorie/compare/0.0.1...HEAD
 [0.1.0]: https://github.com/cgsmith/calorie/releases/tag/0.1.0

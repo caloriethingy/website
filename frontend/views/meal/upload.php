@@ -51,7 +51,7 @@ $this->registerJS("
             <?= $form->field($model, 'picture')
                 ->fileInput([
                     'class' => 'form-control',
-                    //'capture' => 'environment',
+                    'capture' => 'environment',
                 ]); ?>
         </div>
         <div class="form-group">

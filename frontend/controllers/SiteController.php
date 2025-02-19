@@ -144,8 +144,8 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration! Snap your first meal.');
-            return $this->response->redirect(['meal/create']);
+            Yii::$app->session->setFlash('success', 'Thank you for registering! Sign in and snap your first meal!');
+            return $this->response->redirect(['meal/upload']);
         }
 
         return $this->render('signup', [
@@ -170,11 +170,6 @@ class SiteController extends Controller
     }
 
 
-    // @todo
-    // fix deployment script
-    // save local .env variables for deployment
-    // verify email is working
-    // fix user sales agent issue
     /**
      * Requests password reset.
      *

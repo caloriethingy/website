@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Meal;
+use common\models\search\MealSearch;
 use frontend\models\MealForm;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -51,22 +52,10 @@ class MealController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Meal::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
-        ]);
+        $searchModel = new MealSearch();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' =>  $searchModel->search($this->request->queryParams),
         ]);
     }
 
@@ -77,8 +66,8 @@ class MealController extends Controller
         if (Yii::$app->request->isPost) {
             $model->picture = UploadedFile::getInstance($model, 'picture');
             if ($model->upload()) {
-                $meal = \Yii::$app->gemini->mealInquiry($model->filepath);
-                return $this->render('success', ['model' => $meal]);
+                $id = \Yii::$app->gemini->mealInquiry($model->filepath);
+                return Yii::$app->response->redirect(['meal/success', 'id' => $id]);
             }
         }
 
@@ -87,9 +76,11 @@ class MealController extends Controller
         ]);
     }
 
-    public function actionSuccess()
+    public function actionSuccess($id)
     {
-        return $this->render('success');
+        $model = $this->findModel($id);
+
+        return $this->render('success', ['model' => $model]);
     }
 
     /**
@@ -170,7 +161,7 @@ class MealController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Meal::findOne(['id' => $id])) !== null) {
+        if (($model = MealSearch::findOne(['id' => $id, 'user_id' => Yii::$app->user->id])) !== null) {
             return $model;
         }
 

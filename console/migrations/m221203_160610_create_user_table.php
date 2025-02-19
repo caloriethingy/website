@@ -27,7 +27,7 @@ class m221203_160610_create_user_table extends Migration
             'verification_token' => $this->string()->defaultValue(null),
             'first_name' => $this->string(64),
             'email' => $this->string()->notNull()->unique(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(User::STATUS_UNVERIFIED),
+            'status' => $this->smallInteger()->notNull()->defaultValue(User::STATUS_ACTIVE),
             'welcome_email_sent' => $this->boolean()->defaultValue(false),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),

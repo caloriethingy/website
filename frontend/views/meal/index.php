@@ -25,19 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'file_name',
+            'food_name',
             'calories',
             'protein',
             'fat',
-            //'carbohydrates',
-            //'fiber',
-            //'meal',
-            //'created_at',
-            //'updated_at',
+            'carbohydrates',
+            'fiber',
+            'created_at:datetime',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Meal $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

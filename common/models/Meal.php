@@ -2,6 +2,9 @@
 
 namespace common\models;
 
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "meal".
  *
@@ -13,12 +16,11 @@ namespace common\models;
  * @property int $fat
  * @property int $carbohydrates
  * @property int $fiber
- * @property int $meal
  * @property int $user_id
  * @property int $created_at
  * @property int $updated_at
  */
-class Meal extends \yii\db\ActiveRecord
+class Meal extends ActiveRecord
 {
 
     public $base64File;
@@ -31,14 +33,28 @@ class Meal extends \yii\db\ActiveRecord
         return 'meal';
     }
 
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['food_name', 'file_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'meal', 'created_at', 'updated_at'], 'integer'],
+            [['food_name', 'file_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber'], 'required'],
+            [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'created_at', 'updated_at'], 'integer'],
             [['file_name'], 'string', 'max' => 255],
         ];
     }
@@ -56,10 +72,8 @@ class Meal extends \yii\db\ActiveRecord
             'fat' => 'Fat',
             'carbohydrates' => 'Carbohydrates',
             'fiber' => 'Fiber',
-            'meal' => 'Meal',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-
 }

@@ -55,8 +55,8 @@ class SignupForm extends Model
 
         // the following three lines were added:
         $auth = \Yii::$app->authManager;
-        $salesAgentRole = $auth->getRole('user');
-        $auth->assign($salesAgentRole, $user->getId());
+        $userRole = $auth->getRole('user');
+        $auth->assign($userRole, $user->getId());
 
         return $this->sendEmail($user);
     }

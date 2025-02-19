@@ -16,7 +16,7 @@ $this->title = 'Calorie Thingy';
             <p class="fs-5 fw-light">Track your food with a picture!</p>
             <p>
                 <a class="btn btn-lg btn-success" href="<?= Yii::$app->getUrlManager()->createUrl(['meal/upload']) ?>">Capture a meal</a>
-                <a class="btn btn-lg btn-primary" href="<?= Yii::$app->getUrlManager()->createUrl(['summary']) ?>">View Summary</a></p>
+                <a class="btn btn-lg btn-primary" href="<?= Yii::$app->getUrlManager()->createUrl(['meal/index']) ?>">View Summary</a></p>
         </div>
     </div>
     <div class="body-content">

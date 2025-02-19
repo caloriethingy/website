@@ -21,7 +21,6 @@ class m250219_133939_create_meal_table extends Migration
             'fat' => $this->integer()->notNull(),
             'carbohydrates' => $this->integer()->notNull(),
             'fiber' => $this->integer()->notNull(),
-            'meal' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),

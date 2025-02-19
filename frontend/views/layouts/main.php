@@ -49,12 +49,8 @@ $this->beginPage() ?>
                 'url' => [Url::to(['meal/upload'])],
             ];
             $menuItems[] = [
-                'label' => 'List Meals',
-                'url' => [Url::to(['meal/index'])],
-            ];
-            $menuItems[] = [
                 'label' => 'Summary',
-                'url' => [Url::to(['summary'])],
+                'url' => [Url::to(['meal/index'])],
             ];
         }
 
