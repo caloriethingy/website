@@ -18,5 +18,5 @@ This marks the first release!
 * Able to upload from phone with the rear camera initially
 * Confetti on success :)
 
-[Unreleased]: https://github.com/cgsmith/calorie/compare/0.0.1...HEAD
+[Unreleased]: https://github.com/cgsmith/calorie/compare/0.1.0...HEAD
 [0.1.0]: https://github.com/cgsmith/calorie/releases/tag/0.1.0
