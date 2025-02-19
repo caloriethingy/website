@@ -1,0 +1,27 @@
+services:
+
+  frontend:
+    build: frontend
+    ports:
+      - "20080:80"
+    environment:
+      - PHP_ENABLE_XDEBUG=1
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+    extra_hosts: # https://stackoverflow.com/a/67158212/1106908
+      - "host.docker.internal:host-gateway"
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: 123
+    ports:
+      - "20083:3306"
+    volumes:
+      - ./mysql-data/var/lib/mysql:/var/lib/mysql

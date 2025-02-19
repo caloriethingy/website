@@ -1,0 +1,325 @@
+/* Customize container or page background */
+body {
+    background-color: #fff; /* Light pastel background color */
+}
+
+main > .container, main > .container-fluid
+{
+    padding: 70px 15px 20px;
+}
+
+.date-date {
+    width: 300px;
+}
+
+.login {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.login:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+.login:active {
+    color: #fff;
+}
+
+.footer {
+    background-color: #f5f5f5;
+    font-size: .9em;
+    height: 60px;
+}
+
+.footer > .container, .footer > .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    content: '';
+    left: 3px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 2px 4px;
+    background: transparent;
+}
+
+a.asc:after {
+    border-bottom: solid 7px #212529;
+    border-top-width: 0;
+}
+
+a.desc:after {
+    border-top: solid 7px #212529;
+    border-bottom-width: 0;
+}
+
+.grid-view th,
+.grid-view td:last-child {
+    white-space: nowrap;
+}
+
+.grid-view .filters input,
+.grid-view .filters select {
+    min-width: 50px;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+.navbar form > button.logout {
+    padding-top: 7px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+@media(max-width:767px) {
+    .navbar form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+.navbar form > button.logout:focus,
+.navbar form > button.logout:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar form > button.logout:focus {
+    outline: none;
+}
+
+/* style breadcrumb widget as in previous bootstrap versions */
+.breadcrumb {
+    background-color: var(--bs-gray-200);
+    border-radius: .25rem;
+    padding: .75rem 1rem;
+}
+
+.breadcrumb-item > a
+{
+    text-decoration: none;
+}
+
+.index{
+    padding-top: 20px;
+}
+
+/* Main table styling */
+.custom-table {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Header styling */
+.custom-table th {
+    background-color: #99c7e7;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.custom-table th a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Row styling */
+.custom-table td {
+    padding: 15px;
+    text-align: center !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border for the last row */
+}
+
+/* Alternating row colors */
+.custom-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+/* Action buttons */
+.blue-back {
+    background-color: #333; /* Darker background for buttons */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Action buttons */
+.blue-back {
+    background-color: #333; /* Darker background for buttons */
+}
+
+/* Align filter input text vertically in the middle */
+.custom-table input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    color: #333; /* Regular text color */
+}
+
+/* Style for placeholder text */
+.custom-table input::placeholder {
+    color: #444; 
+    text-align: center;
+}
+
+
+/* Align text vertically in the middle */
+.align-middle {
+    vertical-align: middle;
+}
+
+/* Lighter text color */
+.text-light-gray {
+    color: #888888; /* Light grey text */
+}
+
+/* Pagination container */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+  
+/* Pagination item styles */
+.pagination li {
+    margin: 0 5px;
+}
+  
+/* Pagination link styles */
+.pagination li a, .pagination li span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid black;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+  
+.pagination li.active.disabled a,
+.pagination li.disabled.active a {
+    background-color: black;
+    color: white;
+    border-color: black;
+    cursor: default;
+    pointer-events: none;
+}
+
+.pagination .active a {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+.pagination .first a:hover,
+.pagination .last a:hover {
+    background: none !important;
+}
+
+.pagination .first a,
+.pagination .last a,
+.pagination .last.disabled span,
+.pagination .first.disabled span {
+    border: none;
+    background: none;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.pagination .last.disabled span,
+.pagination .first.disabled span {
+    cursor: not-allowed;
+}
+
+.pagination .first a, .pagination .last a {
+    position: relative;
+    transition: color 0.3s;
+}
+
+.pagination li:not(.prev):not(.next):not(.disabled):not(.active) a:hover {
+    background-color: #ddd;
+}
+
+.pagination .prev a, .pagination .next a {
+    padding: 0;
+    font-size: 18px;
+    color: black;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+.pagination .prev a:hover, .pagination .next a:hover {
+    color: #555555;
+}
+
+.pagination .prev.disabled span,
+.pagination .next.disabled span {
+    cursor: not-allowed;
+    border: none;
+    color: #ccc;
+}
+
+.pagination li a, .pagination li span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-table .filters input::placeholder {
+    text-align: left;
+}
+
+.custom-table .filters input {
+    text-align: left;
+}
+
+.spacing1{
+    padding-bottom: 40px;
+}
+
+.container1{
+    padding-top: 10px;
+}
