@@ -20,9 +20,7 @@ class Yii {
 
 /**
  * @property yii\rbac\DbManager                     $authManager
- * @property \Da\User\Model\User                    $user
- * @property \common\components\GeminiApiComponent  $sonar
- * @property \common\components\HubspotApiComponent $hubspot
+ * @property \common\components\GeminiApiComponent  $gemini
  * @property \common\components\PostmarkComponent   $postmark
  * @property \yii\queue\db\Queue                    $queue
  *

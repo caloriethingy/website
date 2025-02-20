@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\web\UnauthorizedHttpException;
 
 /**
  * This is the model class for table "meal".
@@ -53,7 +55,7 @@ class Meal extends ActiveRecord
     public function rules()
     {
         return [
-            [['food_name', 'file_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber'], 'required'],
+            [['food_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber'], 'required'],
             [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'created_at', 'updated_at'], 'integer'],
             [['file_name'], 'string', 'max' => 255],
         ];
@@ -75,5 +77,31 @@ class Meal extends ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+
+    // Automatically set the user_id before saving a new meal
+    /**
+     * @throws UnauthorizedHttpException
+     */
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            // Get the currently authenticated user's ID
+            if (Yii::$app->user->isGuest) {
+                throw new \yii\web\UnauthorizedHttpException('User not authenticated.');
+            }
+
+            // Set the user_id to the current authenticated user
+            $this->user_id = Yii::$app->user->identity->id;
+        }
+
+        return parent::beforeSave($insert);
+    }
+
+    // Define relationships (if any)
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

@@ -1,4 +1,10 @@
 <?php
+
+use yii\log\FileTarget;
+use yii\rest\UrlRule;
+use yii\web\JsonParser;
+use yii\web\UrlManager;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -10,41 +16,50 @@ return [
     'id' => 'calorie-api',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'api\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log' => [
+            'class'   => '\yii\filters\ContentNegotiator',
+            'formats' => [
+                //  comment next line to use GII
+                'application/json' => \yii\web\Response::FORMAT_JSON,
+            ],
+        ],
+    ],
     'modules' => [],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
-        ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'calorie-api',
+            'enableCookieValidation' => false,
+            'enableCsrfValidation'   => false,
+            'parsers' => [
+                'application/json' => JsonParser::class,
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
-        /*
         'urlManager' => [
+            'class' => UrlManager::class,
             'enablePrettyUrl' => true,
+            //'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => UrlRule::class, 'controller' => ['meal', 'auth']],
+                'POST /meals/create-meal' => 'meal/create-meal',
+                'GET /meals/get-daily-summary' => 'meal/get-daily-summary',
             ],
         ],
-        */
+        'user' => [
+            'identityClass' => \common\models\User::class,
+            'enableSession'   => false,
+            'enableAutoLogin' => false,
+            'loginUrl'        => null,
+        ],
     ],
     'params' => $params,
 ];

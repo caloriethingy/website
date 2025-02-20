@@ -3,14 +3,13 @@
 namespace frontend\controllers;
 
 use common\models\Meal;
+use common\models\MealForm;
 use common\models\search\MealSearch;
-use frontend\models\MealForm;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**

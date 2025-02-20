@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Ramsey\Uuid\Uuid;
 use Yii;
@@ -32,7 +32,7 @@ class MealForm extends Model
     {
         if ($this->validate()) {
             $this->newFileName();
-            $this->picture->saveAs($this->filepath);
+            $this->picture->saveAs('@frontend/web/'.$this->filepath);
             return true;
         } else {
             return false;

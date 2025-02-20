@@ -120,6 +120,7 @@ class GeminiApiComponent extends \yii\base\Component
         $meal->fat = $geminiMeal['fat'];
         $meal->fiber = $geminiMeal['fiber'];
         $meal->food_name = $geminiMeal['food_name'];
+        // @TODO if moved a job queue then this must be an object otherwise the queue is NOT aware of the user
         $meal->user_id = Yii::$app->user->id;
         $meal->file_name = $filePath;
         Yii::debug($meal);
