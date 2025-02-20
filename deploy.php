@@ -8,6 +8,7 @@ set('repository', 'git@github.com:cgsmith/calorie.git');
 
 add('shared_files', [
     //'yii',
+    'console/config/params-local.php',
     'common/config/main-local.php',
     'common/config/params-local.php',
     'frontend/config/main-local.php',
