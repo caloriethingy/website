@@ -79,8 +79,23 @@ class MealController extends Controller
     public function actionSuccess($id)
     {
         $model = $this->findModel($id);
+        $startOfDay = strtotime('today midnight');
+        $endOfDay = strtotime('tomorrow midnight') - 1;
+        $today = Meal::find()
+            ->select([
+                'SUM(calories) AS calories',
+                'SUM(protein) AS protein',
+                'SUM(fat) AS fat',
+                'SUM(carbohydrates) AS carbohydrates',
+                'SUM(fiber) AS fiber'
+            ])
+            ->where(['user_id' => Yii::$app->user->id])
+            ->andWhere(['between', 'created_at', $startOfDay, $endOfDay])
+            ->asArray()
+            ->one();
+        $today = array_merge(['calories' => 0, 'protein' => 0, 'fat' => 0, 'carbohydrates' => 0, 'fiber' => 0], $today);
 
-        return $this->render('success', ['model' => $model]);
+        return $this->render('success', ['model' => $model, 'today' => $today]);
     }
 
     /**

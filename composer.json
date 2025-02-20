@@ -5,6 +5,7 @@
     "ext-json": "*",
     "cgsmith/yii2-flatpickr-widget": "~1.1",
     "donatj/phpuseragentparser": "^1.9",
+    "firebase/php-jwt": "^6.11",
     "ramsey/uuid": "^4.7",
     "sentry/sentry": "^4.9",
     "twbs/bootstrap-icons": "^1.11",

@@ -2,9 +2,7 @@
 
 use common\components\PostmarkComponent;
 use common\components\GeminiApiComponent;
-use common\components\HubspotApiComponent;
 use yii\caching\FileCache;
-use yii\queue\db\Queue;
 
 $params = array_merge(
     require __DIR__ . '/params.php',

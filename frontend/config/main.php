@@ -41,9 +41,6 @@ return [
             ],
         ],
         'request' => [
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ],
             'csrfParam' => '_csrf-frontend',
         ],
         'session' => [

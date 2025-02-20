@@ -92,17 +92,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['email'], 'email'],
             [['email'], 'unique'],
-            [['sales_agent_id', 'created_at', 'updated_at'], 'integer'],
-            [
-                'sales_agent_id',
-                'required',
-                'when' => function ($model) {
-                    return $model->role === 'sales-agent';
-                },
-                'whenClient' => "function (attribute, value) {
-                    return $('#role').val() == 'sales-agent';
-                }"
-            ],
+            [['created_at', 'updated_at'], 'integer'],
             [
                 'status',
                 'in',
