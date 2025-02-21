@@ -7,6 +7,7 @@ use Firebase\JWT\JWT;
 use Yii;
 use yii\rest\Controller;
 use yii\web\Response;
+use yii\web\UnauthorizedHttpException;
 
 class AuthController extends Controller
 {
@@ -64,6 +65,7 @@ class AuthController extends Controller
 
         $user = User::findOne(['email' => $data['email'] ?? null]);
         if (!$user || !Yii::$app->security->validatePassword($data['password'], $user->password_hash)) {
+            throw new UnauthorizedHttpException();
             return ['error' => 'Invalid credentials'];
         }
         // @todo not sure if it makes sense to generate an auth key each login via the API?
@@ -71,5 +73,5 @@ class AuthController extends Controller
         $user->save();
 
         return ['token' => $this->generateJwt($user)];
-    }
+    }e
 }
