@@ -37,7 +37,7 @@ You're application should be running at http://localhost:20080!
 
 1. `docker exec -it calorie-frontend-1 bash`
 2. `yii migrate`
-3. `yii fixture/load "*"` (creates chris@fivedevs.com with password of `password`)
+3. `yii fixture/load "*"` (creates admin@example.com with password of `password`)
 
 🎉 You should be able to login!
 

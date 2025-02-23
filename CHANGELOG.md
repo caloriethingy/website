@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added 
 
-* SleekPlan javascript for user feedback
 * "Today So Far" summary on the success page 
 * API for registering and login
 * API for fetching meals, summary, and posting meal
@@ -25,6 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Form fields not needed
 * File name requirement from Meal model. Isn't necessary to have a file to record a meal
+
+## [0.1.1] - 2025-02-19
+
+### Added
+
+* SleekPlan javascript for user feedback
 
 ## [0.1.0] - 2025-02-10
 

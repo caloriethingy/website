@@ -4,7 +4,7 @@ namespace Deployer;
 require 'recipe/yii.php';
 
 // Config
-set('repository', 'git@github.com:cgsmith/calorie.git');
+set('repository', 'git@github.com:caloriethingy/website.git');
 
 add('shared_files', [
     //'yii',
