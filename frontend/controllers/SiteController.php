@@ -35,7 +35,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup', 'webhook'],
+                'only' => ['logout', 'signup', 'privacy', 'terms'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -43,9 +43,14 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['webhook'],
+                        'actions' => ['privacy'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['?', '@'],
+                    ],
+                    [
+                        'actions' => ['terms'],
+                        'allow' => true,
+                        'roles' => ['?', '@'],
                     ],
                     [
                         'actions' => ['logout'],
@@ -58,7 +63,6 @@ class SiteController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
-                    'webhook' => ['post','head'],
                 ],
             ],
         ];
@@ -99,6 +103,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionPrivacy()
+    {
+        return $this->render('privacy');
+    }
+
+    public function actionTerms()
+    {
+        return $this->render('terms');
     }
 
     /**

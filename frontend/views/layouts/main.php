@@ -19,15 +19,29 @@ $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>" class="h-100">
     <head>
-        <script type="text/javascript">window.$sleek=[];window.SLEEK_PRODUCT_ID=87924416;(function(){d=document;s=d.createElement("script");s.src="https://client.sleekplan.com/sdk/e.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+        <?php
+        if (!Yii::$app->user->isGuest) {
+        ?>
+        <script type="text/javascript">window.$sleek = [];
+            window.SLEEK_PRODUCT_ID = 87924416;
+            (function () {
+                d = document;
+                s = d.createElement("script");
+                s.src = "https://client.sleekplan.com/sdk/e.js";
+                s.async = 1;
+                d.getElementsByTagName("head")[0].appendChild(s);
+            })();</script>
+        <?php } ?>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <?php
         $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
+        <?php
+        $this->head() ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body class="d-flex flex-column h-100">
     <?php
@@ -100,7 +114,17 @@ $this->beginPage() ?>
 
     <footer class="footer mt-auto py-3 text-muted">
         <div class="container">
-            <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+            <p class="float-start">
+                &copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?>
+                <a href="<?= Url::to(['/site/privacy']) ?>" class="text-black">Terms and Conditions</a>
+                <a href="<?= Url::to(['/site/privacy']) ?>">Privacy Policy</a>&nbsp;
+                <a href="https://x.com/caloriethingy" target="_blank" class="text-black mx-2">
+                    <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="https://github.com/caloriethingy/website" target="_blank" class="text-black">
+                    <i class="bi bi-github"></i>
+                </a>
+            </p>
         </div>
     </footer>
 

@@ -5,6 +5,8 @@ using the Yii2 framework.
 
 Read about it in the [MVP](mvp.md)
 
+License is [GNU GPLv3](LICENSE)
+
 ## Application Overview
 
 The application allows users to log meals, including uploading images for analysis, and view daily nutritional
