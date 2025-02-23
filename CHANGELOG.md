@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * API for registering and login
 * API for fetching meals, summary, and posting meal
 * JWT tokens for API requests
+* Date, type, and context as columns to the meal
 
 ### Changed
 

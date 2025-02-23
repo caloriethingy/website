@@ -12,7 +12,9 @@ use yii\web\UnauthorizedHttpException;
  *
  * @property int $id
  * @property string $file_name
+ * @property string $context
  * @property string $food_name
+ * @property string $type
  * @property int $calories
  * @property int $protein
  * @property int $fat
@@ -26,6 +28,10 @@ class Meal extends ActiveRecord
 {
 
     public $base64File;
+    public const BREAKFAST = 'breakfast';
+    public const LUNCH     = 'lunch';
+    public const DINNER    = 'dinner';
+    public const OTHER     = 'other';
 
     /**
      * {@inheritdoc}
@@ -55,8 +61,11 @@ class Meal extends ActiveRecord
     public function rules()
     {
         return [
-            [['food_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber'], 'required'],
+            [['date', 'food_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'type'], 'required'],
             [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'created_at', 'updated_at'], 'integer'],
+            [['date'], 'date'],
+            [['type', 'context'], 'string'],
+            [['type'], 'in', 'range' => [self::BREAKFAST, self::LUNCH, self::DINNER, self::OTHER]],
             [['file_name'], 'string', 'max' => 255],
         ];
     }
