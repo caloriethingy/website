@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixes
+
+* Automatic upload checkbox on upload form #1
+
 ### Added 
 
 * "Today So Far" summary on the success page 

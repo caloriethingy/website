@@ -43,7 +43,7 @@ $this->registerJS(
         emojiIndex = (emojiIndex + 1) % foodEmojis.length; // Cycle through emojis
     }, 1100); // Adjust the interval (in milliseconds) for the desired speed
 
-    $('#mealform-picture').on('change', function(ev) {
+    $('#file-input').on('change', function(ev) {
      if (localStorage.getItem('autoUpload') === 'true') { // Check localStorage
         $('#submitButton').text('Processing...');
         $('#submitButton').attr('disabled', true);
@@ -100,11 +100,11 @@ $this->registerCssFile('@web/css/upload.css');
                     ->field($model, 'type')
                     ->radioList($model->getTypeList(), [
                             'class' => 'btn-group d-flex justify-content-center',
-                        'item' => function ($index, $label, $name, $checked, $value) {
-                            $return = '<input class="btn-check" type="radio" value="'.$value.'" id="'.$value.'" name="' . $name . '" autocomplete="off" ' . ($checked ? "checked" : "") . '>';
-                            $return .= '<label class="btn btn-outline-primary" for="'.$value.'">' . $label . '</label>';
-                            return $return;
-                        },
+                            'item' => function ($index, $label, $name, $checked, $value) {
+                                $return = '<input class="btn-check" type="radio" value="'.$value.'" id="'.$value.'" name="' . $name . '" autocomplete="off" ' . ($checked ? "checked" : "") . '>';
+                                $return .= '<label class="btn btn-outline-primary" for="'.$value.'">' . $label . '</label>';
+                                return $return;
+                            },
                     ])
                     ->label(false); ?>
         </div>
@@ -115,7 +115,6 @@ $this->registerCssFile('@web/css/upload.css');
         </div>
         <div class="d-grid gap-2 d-md-block">
             <?= Html::submitButton('Save meal!', ['id' => 'submitButton', 'class' => 'btn btn-success']) ?>
-
         </div>
 
         <?php
