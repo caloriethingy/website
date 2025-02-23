@@ -37,34 +37,11 @@ $randEmojiIndex = array_rand($emoji, 1);
 $this->registerJS(
     "
     let foodEmojis = " . json_encode($emoji) . ";
-    let spinning = false;
-
-    function startSlotMachine() {
-        if (spinning) return;
-        spinning = true;
-
-        let slotSpeed = 50;
-        let slowdownFactor = 1.1;
-        let spinCount = 0;
-        let maxSpins = Math.random();
-
-        let interval = setInterval(() => {
-            let randomIndex = Math.floor(Math.random() * foodEmojis.length);
-            $('#upload-title').text('Upload Your ' + foodEmojis[randomIndex]);
-
-            spinCount++;
-            slotSpeed *= slowdownFactor;
-
-            if (spinCount >= maxSpins) {
-                clearInterval(interval);
-                let finalIndex = Math.floor(Math.random() * foodEmojis.length);
-                $('#upload-title').text('Upload Your ' + foodEmojis[finalIndex]);
-                spinning = false;
-            }
-        }, slotSpeed);
-    }
-
-    $('#upload-title').click(startSlotMachine);
+    let emojiIndex = " . $randEmojiIndex . ";
+    setInterval(() => {
+        $('#upload-title').text('Upload Your ' + foodEmojis[emojiIndex]);
+        emojiIndex = (emojiIndex + 1) % foodEmojis.length; // Cycle through emojis
+    }, 1100); // Adjust the interval (in milliseconds) for the desired speed
 
     $('#mealform-picture').on('change', function(ev) {
      if (localStorage.getItem('autoUpload') === 'true') { // Check localStorage
@@ -74,6 +51,14 @@ $this->registerJS(
         ev.preventDefault();
       }
     });
+    
+    $('#submitButton').on('click', function(ev) {
+        $('#submitButton').text('Processing...');
+        $('#submitButton').attr('disabled', true);
+        $(this).parents('form').submit();
+        ev.preventDefault();
+      }
+    );
 "
 );
 
@@ -87,6 +72,7 @@ $this->registerCssFile('@web/css/upload.css');
         <?php
         $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
+        <?= $form->errorSummary($model); ?>
         <?=$form->field($model, 'context')->textInput([
             'class' => 'form-control mb-3',
             'placeholder' => 'Add context (optional)',
@@ -99,9 +85,8 @@ $this->registerCssFile('@web/css/upload.css');
         </div>
 
         <?= Html::activeFileInput($model, 'picture', ['style' => 'display: none;', 'id' => 'file-input']) ?>
-        <?= $form->field($model, 'day')->textInput()->label(false); ?>
+        <?= $form->field($model, 'day')->hiddenInput()->label(false); ?>
 
-        <input type="file" id="camera-input" accept="image/*" capture="environment" style="display: none;">
         <div id="metadata-fields">
             <div class="mb-3">
                 <div class="btn-group d-flex justify-content-center" role="group">
@@ -121,8 +106,7 @@ $this->registerCssFile('@web/css/upload.css');
                             return $return;
                         },
                     ])
-                    ->label(false)
-                ; ?>
+                    ->label(false); ?>
         </div>
 
         <div class="mb-3 form-check mt-3">
@@ -170,14 +154,14 @@ $this->registerCssFile('@web/css/upload.css');
             localStorage.setItem('autoUpload', autoUploadCheckbox.checked);
         });
 
-        let currentDate = new Date();
-        let today = new Date(); // Store today's date
-
 
         const prevDayBtn = document.getElementById('prev-day-btn');
         const nextDayBtn = document.getElementById('next-day-btn');
         const currentDayBtn = document.getElementById('current-day-btn'); // Changed to button
         const day = document.getElementById('mealform-day'); // Changed to button
+        let currentDate = new Date();
+        let today = new Date(); // Store today's date
+        currentDate.setDate(currentDate.getDate() - Math.abs(day.value));
         function updateDayDisplay() {
             const diff = Math.floor((today - currentDate) / (1000 * 60 * 60 * 24)); // Difference in days
             const options = {weekday: 'long'};
@@ -230,6 +214,7 @@ $this->registerCssFile('@web/css/upload.css');
                 longPressTimer = setTimeout(() => {
                     isLongPress = true;
                     body.style.backgroundColor = '';
+                    fileInput.removeAttribute('capture'); // Remove capture for long press
                     fileInput.click();
                 }, 1000); // Adjust duration as needed
 
@@ -246,7 +231,8 @@ $this->registerCssFile('@web/css/upload.css');
                 clearTimeout(longPressTimer);
                 body.style.backgroundColor = '';
                 if (!isLongPress) {
-                    cameraInput.click();
+                    fileInput.setAttribute('capture', 'environment'); // Set capture for tap
+                    fileInput.click();
                 }
                 isLongPress = false;
             });
