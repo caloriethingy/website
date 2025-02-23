@@ -10,7 +10,7 @@ $params = array_merge(
 );
 
 return [
-    'name' => $params['company_name'] . ' - ' . $params['product_name'],
+    'name' => $params['product_name'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',

@@ -24,14 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
             'food_name',
+            'type',
             'calories',
             'protein',
             'fat',
             'carbohydrates',
             'fiber',
-            'created_at:datetime',
+            'date:date',
             [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Meal $model, $key, $index, $column) {

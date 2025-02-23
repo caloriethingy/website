@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * User view text to be more consistent
+* User meal entry form to allow input of additional metadata and context clues
 
 ### Removed
 

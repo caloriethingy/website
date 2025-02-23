@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use DateTime;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -13,6 +14,7 @@ use yii\web\UnauthorizedHttpException;
  * @property int $id
  * @property string $file_name
  * @property string $context
+ * @property DateTime $date
  * @property string $food_name
  * @property string $type
  * @property int $calories
@@ -63,7 +65,6 @@ class Meal extends ActiveRecord
         return [
             [['date', 'food_name', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'type'], 'required'],
             [['user_id', 'calories', 'protein', 'fat', 'carbohydrates', 'fiber', 'created_at', 'updated_at'], 'integer'],
-            [['date'], 'date'],
             [['type', 'context'], 'string'],
             [['type'], 'in', 'range' => [self::BREAKFAST, self::LUNCH, self::DINNER, self::OTHER]],
             [['file_name'], 'string', 'max' => 255],

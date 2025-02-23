@@ -1,0 +1,22 @@
+#upload-title {
+    font-size: 2rem;
+    font-weight: bold;
+    min-height: 50px;
+    display: inline-block;
+    transition: color 0.2s ease-in-out;
+}
+
+#gesture-area {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
+    -webkit-touch-callout: none; /* Prevents default callout on hold in iOS */
+}
+
+
+.gesture-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}

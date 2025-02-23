@@ -216,12 +216,12 @@ a.desc:after {
     padding: 0;
     margin: 20px 0;
 }
-  
+
 /* Pagination item styles */
 .pagination li {
     margin: 0 5px;
 }
-  
+
 /* Pagination link styles */
 .pagination li a, .pagination li span {
     display: flex;
@@ -238,7 +238,7 @@ a.desc:after {
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 }
-  
+
 .pagination li.active.disabled a,
 .pagination li.disabled.active a {
     background-color: black;

@@ -3,6 +3,7 @@
 namespace common\components;
 
 use common\models\Meal;
+use common\models\MealForm;
 use Exception;
 use Yii;
 use yii\helpers\FileHelper;
@@ -27,10 +28,9 @@ class GeminiApiComponent extends \yii\base\Component
                 'format' => Client::FORMAT_JSON
             ],
         ]);
-
     }
 
-    public function mealInquiry($filePath)
+    public function mealInquiry(MealForm $model)
     {
         $data = [
             "contents" => [
@@ -38,17 +38,9 @@ class GeminiApiComponent extends \yii\base\Component
                     "role" => "user",
                     "parts" => [
                         [
-                            "text" => "INSERT_INPUT_HERE"
-                        ]
-                    ]
-                ],
-                [
-                    "role" => "user",
-                    "parts" => [
-                        [
                             "inline_data" => [
-                                "data" => base64_encode(file_get_contents($filePath)),
-                                "mimeType" => FileHelper::getMimeType($filePath)
+                                "data" => base64_encode(file_get_contents($model->filepath)),
+                                "mimeType" => FileHelper::getMimeType($model->filepath)
                             ]
                         ]
                     ]
@@ -58,7 +50,10 @@ class GeminiApiComponent extends \yii\base\Component
                 "role" => "user",
                 "parts" => [
                     [
-                        "text" => "Provide a caloric and macro estimate for pictures I provide to you. Try to be as accurate as possible and always calculate the everything you see in the picture. Proivde a 3 or 4 word `food_name`"
+                        "text" => "Provide a caloric and macro estimate for pictures I provide to you. Try to be as 
+                        accurate as possible and always calculate the everything you see in the picture. Provide a 
+                        3 or 7 word `food_name` with no special characters. If the user provides context pay attention 
+                        as it may contain details about the calories or specifics details about the picture."
                     ]
                 ]
             ],
@@ -102,6 +97,10 @@ class GeminiApiComponent extends \yii\base\Component
             ]
         ];
 
+        $data['contents'][0]['parts'][] = [
+                'text' => !empty($model->context) ? 'Context: ' . $model->context : 'INSERT_TEXT_HERE'
+        ];
+
         $response = $this->client
             ->post([$this->model, 'key' => $this->apiKey])
             ->setData($data)
@@ -114,6 +113,9 @@ class GeminiApiComponent extends \yii\base\Component
         $meal = new Meal();
         $gemini = json_decode($response->getContent(), true);
         $geminiMeal = json_decode($gemini['candidates'][0]['content']['parts'][0]['text'], true);
+        $meal->context = $model->context;
+        $meal->date = $model->date->format('Y-m-d H:i:s');
+        $meal->type = $model->type;
         $meal->protein = $geminiMeal['protein'];
         $meal->calories = $geminiMeal['calories'];
         $meal->carbohydrates = $geminiMeal['carbohydrates'];
@@ -122,8 +124,10 @@ class GeminiApiComponent extends \yii\base\Component
         $meal->food_name = $geminiMeal['food_name'];
         // @TODO if moved a job queue then this must be an object otherwise the queue is NOT aware of the user
         $meal->user_id = Yii::$app->user->id;
-        $meal->file_name = $filePath;
+        $meal->file_name = $model->filepath;
         Yii::debug($meal);
+        $meal->validate();
+        $errors = $meal->getErrors();
         $meal->save();
         // @TODO catch unidentified pictures?
 
