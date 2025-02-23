@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\components\GeminiApiComponent;
 use common\jobs\EmailJob;
+use common\models\User;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -144,7 +145,8 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registering! Sign in and snap your first meal!');
+            Yii::$app->session->setFlash('success', 'Thank you for registering! Snap your first meal!');
+            Yii::$app->user->login(User::findByEmail($model->email), 3600 * 24 * 30);
             return $this->response->redirect(['meal/upload']);
         }
 
