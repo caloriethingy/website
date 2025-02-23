@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Meal;
 use common\models\MealForm;
 use common\models\search\MealSearch;
+use DateTime;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -63,9 +64,10 @@ class MealController extends Controller
         $model = new MealForm();
 
         if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
             $model->picture = UploadedFile::getInstance($model, 'picture');
             if ($model->upload()) {
-                $id = \Yii::$app->gemini->mealInquiry($model->filepath);
+                $id = \Yii::$app->gemini->mealInquiry($model);
                 return Yii::$app->response->redirect(['meal/success', 'id' => $id]);
             }
         }
@@ -78,9 +80,7 @@ class MealController extends Controller
     public function actionSuccess($id)
     {
         $model = $this->findModel($id);
-        $startOfDay = strtotime('today midnight');
-        $endOfDay = strtotime('tomorrow midnight') - 1;
-        $today = Meal::find()
+        $sum = Meal::find()
             ->select([
                 'SUM(calories) AS calories',
                 'SUM(protein) AS protein',
@@ -88,13 +88,22 @@ class MealController extends Controller
                 'SUM(carbohydrates) AS carbohydrates',
                 'SUM(fiber) AS fiber'
             ])
-            ->where(['user_id' => Yii::$app->user->id])
-            ->andWhere(['between', 'created_at', $startOfDay, $endOfDay])
+            ->where(['user_id' => Yii::$app->user->id, 'date' => $model->date])
             ->asArray()
             ->one();
-        $today = array_merge(['calories' => 0, 'protein' => 0, 'fat' => 0, 'carbohydrates' => 0, 'fiber' => 0], $today);
+        $sum = array_merge(['calories' => 0, 'protein' => 0, 'fat' => 0, 'carbohydrates' => 0, 'fiber' => 0], $sum);
 
-        return $this->render('success', ['model' => $model, 'today' => $today]);
+        $today = new DateTime();
+        $modelDate = new DateTime($model->date); // @todo should be a date object
+        $diff = $today->diff($modelDate);
+
+        $sum['title'] = match ($diff->days) {
+            0 => 'Today So Far',
+            1 => 'Yesterday\'s Sum',
+            default => $modelDate->format('M jS'),
+        };
+
+        return $this->render('success', ['model' => $model, 'sum' => $sum]);
     }
 
     /**

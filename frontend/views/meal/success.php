@@ -83,7 +83,7 @@ var isMobile = window.innerWidth < 768; // Adjust as needed for tablets
             <!-- Daily Totals Section -->
             <div class="col-md-6 d-flex mt-3 mt-md-0">
                 <div class="card p-3 w-100 h-100 d-flex flex-column" style="max-width: 400px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 200;">
-                    <h4 class="card-title text-center">📊 <strong>Today So Far</strong></h4>
+                    <h4 class="card-title text-center">📊 <strong><?=$sum['title']?></strong></h4>
                     <div class="row flex-grow-1">
                         <div class="col-6 text-end">
                             <p class="mb-0"><strong>🔥 Calories</strong></p>
@@ -93,11 +93,11 @@ var isMobile = window.innerWidth < 768; // Adjust as needed for tablets
                             <p class="mb-0"><strong>🌾 Fiber</strong></p>
                         </div>
                         <div class="col-6 text-start">
-                            <p class="mb-0"><?= $today['calories']; ?> kcal</p>
-                            <p class="mb-0"><?= $today['protein']; ?> g</p>
-                            <p class="mb-0"><?= $today['fat']; ?> g</p>
-                            <p class="mb-0"><?= $today['carbohydrates']; ?> g</p>
-                            <p class="mb-0"><?= $today['fiber']; ?> g</p>
+                            <p class="mb-0"><?= $sum['calories']; ?> kcal</p>
+                            <p class="mb-0"><?= $sum['protein']; ?> g</p>
+                            <p class="mb-0"><?= $sum['fat']; ?> g</p>
+                            <p class="mb-0"><?= $sum['carbohydrates']; ?> g</p>
+                            <p class="mb-0"><?= $sum['fiber']; ?> g</p>
                         </div>
                     </div>
                 </div>
