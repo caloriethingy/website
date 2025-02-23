@@ -1,7 +1,7 @@
 {
   "license": "proprietary",
   "require": {
-    "php": ">=7.4.0",
+    "php": ">=8.3.0",
     "ext-json": "*",
     "cgsmith/yii2-flatpickr-widget": "~1.1",
     "donatj/phpuseragentparser": "^1.9",
