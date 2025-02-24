@@ -39,8 +39,8 @@ class GeminiApiComponent extends \yii\base\Component
                     "parts" => [
                         [
                             "inline_data" => [
-                                "data" => base64_encode(file_get_contents($model->filepath)),
-                                "mimeType" => FileHelper::getMimeType($model->filepath)
+                                "data" => base64_encode(file_get_contents(Yii::getAlias('@frontend/web/') . $model->filepath)),
+                                "mimeType" => FileHelper::getMimeType(Yii::getAlias('@frontend/web/') . $model->filepath)
                             ]
                         ]
                     ]

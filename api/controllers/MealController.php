@@ -29,9 +29,10 @@ class MealController extends ActiveController
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $model = new MealForm();
+        $model->load(Yii::$app->request->post());
         $model->picture = UploadedFile::getInstance($model, 'picture');
         if ($model->upload()) {
-            $id = \Yii::$app->gemini->mealInquiry(Yii::getAlias('@frontend/web/'.$model->filepath));
+            $id = \Yii::$app->gemini->mealInquiry($model);
             return array_merge(['meal' => Meal::findOne($id)], $this->actionGetDailySummary());
         }
 
