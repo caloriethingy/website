@@ -118,9 +118,7 @@ $this->beginPage() ?>
                 &copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?>
                 <a href="<?= Url::to(['/site/terms']) ?>" class="text-black">Terms and Conditions</a>
                 <a href="<?= Url::to(['/site/privacy']) ?>" class="text-black">Privacy Policy</a>&nbsp;
-                <a href="https://x.com/caloriethingy" target="_blank" class="text-black mx-2">
-                    <i class="bi bi-twitter-x"></i>
-                </a>
+                <a href="https://x.com/caloriethingy" target="_blank" class="text-black mx-2"><i class="bi bi-twitter-x"></i></a>
                 <a href="https://github.com/caloriethingy/website" target="_blank" class="text-black">
                     <i class="bi bi-github"></i>
                 </a>
